@@ -1,7 +1,7 @@
 models:
   - name: customers
     description: Customer overview data mart, offering key details for each unique customer. One row per customer.
-    access: protected
+    access: public
     group: marketing
     config:
       contract:
