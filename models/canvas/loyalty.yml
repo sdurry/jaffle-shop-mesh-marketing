@@ -1,0 +1,25 @@
+models:
+- name: loyalty
+  description: This model calculates the lifetime value of customers and assigns them
+    a loyalty tier based on their spending. It helps in identifying high-value customers
+    and tailoring marketing strategies accordingly.
+  config:
+    contract:
+      enforced: false
+  columns:
+  - name: customer_id
+    data_type: text
+    description: A unique identifier for each customer.
+    data_tests:
+      - unique
+      - not_null
+  - name: medallion_level
+    data_type: varchar(10)
+    description: The loyalty tier assigned to a customer based on their lifetime value,
+      categorized as gold, silver, or bronze.
+  - name: points_amount
+    data_type: int
+    description: The total points accumulated by a customer, reflecting their engagement
+      and spending.
+  - name: loaded_at
+    data_type: timestamp_ltz
