@@ -1,3 +1,9 @@
+{{
+    config(
+        materialized='table'
+    )
+}}
+
 WITH customers AS (
   SELECT
     *
@@ -6,7 +12,7 @@ WITH customers AS (
   SELECT
     CUSTOMER_ID,
     ORDER_TOTAL
-  FROM SDURRY_FINANCE.ANALYTICS_FINANCE.ORDERS
+  FROM {{ ref('jaffle_shop_mesh_finance', 'orders') }}
 ), aggregate_1 AS (
   SELECT
     CUSTOMER_ID,
@@ -31,7 +37,8 @@ WITH customers AS (
       WHEN LIFETIME_VALUE BETWEEN 1000 AND 2499
       THEN 'silver'
       ELSE 'bronze'
-    END AS LOYALTY_TIER
+    END AS LOYALTY_TIER,
+    CURRENT_TIMESTAMP AS loaded_at
   FROM join_1
 ), loyalty_sql AS (
   SELECT
